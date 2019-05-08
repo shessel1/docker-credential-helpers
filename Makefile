@@ -1,4 +1,4 @@
-.PHONY: all deps osxkeychain secretservice test validate wincred pass deb
+.PHONY: all deps localfile osxkeychain secretservice test validate wincred pass deb
 
 TRAVIS_OS_NAME ?= linux
 VERSION := $(shell grep 'const Version' credentials/version.go | awk -F'"' '{ print $$2 }')
@@ -11,6 +11,10 @@ deps:
 clean:
 	rm -rf bin
 	rm -rf release
+
+localfile:
+	mkdir -p bin
+	go build -o bin/docker-credential-localfile localfile/cmd/main_linux.go
 
 osxkeychain:
 	mkdir -p bin
